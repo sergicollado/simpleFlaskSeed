@@ -1,0 +1,10 @@
+-r common.txt
+argh==0.26.1
+clint==0.3.1
+coverage==3.7.1
+mamba==0.8.5
+pathtools==0.1.2
+PyYAML==3.11
+watchdog==0.8.1
+flask-restplus==0.8.0
+

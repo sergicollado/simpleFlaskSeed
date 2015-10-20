@@ -1,9 +1,9 @@
-from flask import Blueprint
-from flask_restful import Resource, Api
-
-api_bp = Blueprint('users', __name__)
+from flask.ext.restplus import Resource, Api
+from app import api, namespace
 
 
+@namespace.route('/users/me')
+@api.doc(responses={404: 'Todo not found'}, params={'token': 'aToken'})
 class GetUser(Resource):
     def get(self):
         return {
@@ -11,5 +11,3 @@ class GetUser(Resource):
             'email': 'anEmail@hi.com'
         }
 
-api = Api(api_bp)
-api.add_resource(GetUser, '/users/me')

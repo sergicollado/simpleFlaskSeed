@@ -6,7 +6,7 @@ install
     workon envName
 
     # install requeriments
-    pip install -d requeriments.txt
+    pip install -d config/requeriments/dev.txt
 
 migrations
 ----------

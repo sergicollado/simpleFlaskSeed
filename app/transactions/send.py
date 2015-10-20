@@ -1,30 +1,23 @@
-from flask import Blueprint
-from flask_restful import Resource, Api, reqparse
+from flask.ext.restplus import  Resource
+from app import api, namespace
 
-api_bp = Blueprint('transactions', __name__)
-
-
-class Send(Resource):
-    def parse(self):
-        parser = reqparse.RequestParser()
-
-        parser.add_argument('amount', required=True, type=str,
-                            help="Amount cannot be blank!")
-
-        parser.add_argument('card', required=True, type=str,
-                            help="Card cannot be blank!")
-
-        parser.add_argument('text', required=False, type=str,
+parser = api.parser()
+parser.add_argument('amount', required=True, type=str,location='form',
+                    help="Amount cannot be blank!")
+parser.add_argument('card', required=True, type=str,location='form',
+                    help="Card cannot be blank!")
+parser.add_argument('text', required=False, type=str,location='form',
                             help="text description")
 
-        return parser.parse_args()
 
+@namespace.route('/transactions/send')
+@api.doc(params={'amount': 'aToken', 'card':'aCard'})
+class Send(Resource):
+
+    @api.doc(parser=parser)
     def post(self):
+        '''Send a transaction '''
+        args = parser.parse_args()
+        return {'transaction': args}
 
-        args = self.parse()
-        print(args)
-        return {'transaction': 'aTransactionId'}
-
-api = Api(api_bp)
-api.add_resource(Send, '/transactions/send')
 
