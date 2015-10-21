@@ -12,5 +12,9 @@ class User(db.Model):
         self.username = username
         self.email = email
 
+    @staticmethod
+    def getFirstUser():
+        return User.query.limit(1).first()
+
     def __repr__(self):
         return '<User %r>' % (self.username)
